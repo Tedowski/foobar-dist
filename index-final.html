@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FooBar Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <div class="desc">Fubar Dashboard</div>
+        <div class="user">
+            <div class="name">
+                Cotton E. Joe
+            </div>
+            <div class="pro-img">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+    </header>
+    <aside>
+        <div class="logo">LOGO</div>
+        <ul class="controls">
+            <li id="secOne" class="c-button active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="tooltip">Main data</span>
+            </li>
+            <li id="secTwo" class="c-button">
+                <i class="fas fa-balance-scale"></i>
+                <span class="tooltip">Storage data</span>
+            </li>
+            <li id="secThree" class="c-button">
+                <i class="fas fa-beer"></i>
+                <span class="tooltip">All beers</span>
+            </li>
+        </ul>
+    </aside>
+    <main id="main">
+        <section class="wrapper sec-one">
+            <div id="mini-one" class="item item-mini">
+                <div>
+                    <div class="mini-icon">
+                        <img src="images/Earnings_icon.png" alt="earnings_icon">
+                    </div>
+                    <h3 class="mini value">19 930</h3>
+                    <p class="class-desc">Total earnings</p>
+                </div>
+                <div>
+                    <img src="images/Earnings_graph.png" alt="earn_graph">
+                </div>
+            </div>
+            <div id="mini-two" class="item item-mini">
+                <div>
+                    <div class="mini-icon">
+                        <img src="images/Orders_icon.png" alt="orders_icon">
+                    </div>
+                    <h3 class="mini value">180</h3>
+                    <p class="class-desc">Daily orders</p>
+                </div>
+                <div>
+                    <img src="images/Orders_graph.png" alt="order_graph">
+                </div>
+            </div>
+            <div id="mini-three" class="item item-mini">
+                <div>
+                    <div class="mini-icon">
+                        <img src="images/Time_icon.png" alt="wait_icon">
+                    </div>
+                    <h3 class="mini value">2 min</h3>
+                    <p class="class-desc">Average wait. time</p>
+                </div>
+                <div>
+                    <img src="images/Time_graph.png" alt="wait_graph">
+                </div>
+            </div>
+            <div id="mini-four" class="item item-mini">
+                <div>
+                    <div class="mini-icon">
+                        <img src="images/Comments_icon.png" alt="comment_icon">
+                    </div>
+                    <h3 class="mini value">148</h3>
+                    <p class="class-desc">Total reviews</p>
+                </div>
+                <div>
+                    <img src="images/Comments_graph.png" alt="comment_graph">
+                </div>
+            </div>
+            <div id="big-main" class="item item-main">
+                <h2 class="big-header">Activity Status</h2>
+                <div id="bartenders" class="big-bart"></div>
+                <div class="big-chart chart-main">
+                    <canvas id="myChartOne"></canvas>
+                </div>
+            </div>
+            <div id="sub-grid" class="sub-grid">
+                <div id="sub-one" class="item sub-data-item">
+                    <div class="sub-header">
+                        <h2>Tap Status</h2>
+                        <a class="sub-icon" id="showMoreOne">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <span class="tooltip">Show all/less</span>
+                        </a>
+                    </div>
+                    <div id="taps" class="sub-content limited"></div>
+                </div>
+                <div id="sub-two" class="item sub-data-item">
+                    <div class="sub-header">
+                        <h2>Ongoing orders</h2>
+                        <div class="sub-icon" id="showMoreTwo">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <span class="tooltip">Show all/less</span>
+                        </div>
+                    </div>
+                    <div class="sub-content limited" id="queueList"></div>
+                </div>
+                <div id="sub-three" class="item sub-data-item">
+                    <div class="sub-header">
+                        <h2>Newest reviews</h2>
+                        <div class="sub-icon">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template id="bartenderTemplate">
+                <article class="tender">
+                    <div class="tender-banner">
+                        <p id="tenderStatus">data-status</p>
+                    </div>
+                    <div class="tender-info">
+                        <i class="fas fa-user-circle"></i>
+                        <h3 id="tenderName">data-name</h3>
+                        <p id="tenderServis">servis-id</p>
+                    </div>
+                </article>
+            </template>
+            <template id="templateTaps">
+                <article class="tap">
+                    <div class="beer-img">
+                        <div class="beer-img-div">
+                            <img id="beer-img" src="">
+                        </div>
+                    </div>
+                    <div class="beer-name">
+                        <h3 id="beerIn">beer-in</h3>
+                    </div>
+                    <div class="beer-info">
+                        <h3 id="beerStatus"></h3>
+                    </div>
+                    <div class="beer-use">
+                        <p>In Use:</p>
+                        <div class="show-status">
+                            <span class="tooltip">In use:
+                                <span id="inUse"></span>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+            </template>
+            <template id="orderTemplate">
+                <article class="order">
+                    <div class="order-info">
+                        <h3 id="orderId">data-id</h3>
+                        <p id="orderDate">data-time</p>
+                    </div>
+                    <div class="order-val">
+                        <ul>
+                            <li id="orderItem"></li>
+                        </ul>
+                    </div>
+                    <div class="order-tender">
+                        <h3 id="servingBartender"></h3>
+                        <div class="show-status"></div>
+                    </div>
+                </article>
+            </template>
+        </section>
+
+        <section class="wrapper sec-two hidden">
+            <div class="sec-taps">
+                <div class="item det-tap-item">
+                    <div id="tapOne" class="tap-detail" data-id="0">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapTwo" class="tap-detail" data-id="1">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapThree" class="tap-detail" data-id="2">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapFour" class="tap-detail" data-id="3">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapFive" class="tap-detail" data-id="4">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapSix" class="tap-detail" data-id="5">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+                <div class="item det-tap-item">
+                    <div id="tapSev" class="tap-detail" data-id="6">
+                        <canvas id="myChartTap"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="item sec-main">
+                <h3 class="big-header">Storage</h3>
+                <div class="sec-big-chart">
+                    <canvas id="myChartTwo"></canvas>
+                </div>
+            </div>
+        </section>
+        <section class="wrapper sec-three hidden">
+            <div id="beers" class="sec-inv"></div>
+            <template id="beerTemplate">
+                <article class="item det-beer">
+                    <h3 id="bName" class="det-beer-name"></h3>
+                    <div class="det-beer-img">
+                        <img id="bImg" src="" alt="beer">
+                    </div>
+                    <div id="bButton" class="beer-more">
+                        <i class="fas fa-chevron-circle-down"></i>
+                    </div>
+                    <ul id="bDesc" class="modal hidden">
+                        <div class="modal-content">
+                            <div class="close-btn">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <li>
+                                <h3>Appearence</h3>
+                                <p id="bApp"></p>
+                            </li>
+                            <li>
+                                <h3>Aroma</h3>
+                                <p id="bAro"></p>
+                            </li>
+                            <li>
+                                <h3>Flavor</h3>
+                                <p id="bFla"></p>
+                            </li>
+                            <li>
+                                <h3>Mouthfeel</h3>
+                                <p id="bMouth"></p>
+                            </li>
+                            <li>
+                                <h3>Overall Impression</h3>
+                                <p id="bOver"></p>
+                            </li>
+                            <li>
+                                <h3>Overall Impression</h3>
+                                <p id="bAlc"></p>
+                            </li>
+                        </div>
+                    </ul>
+                </article>
+            </template>
+        </section>
+    </main>
+    <script src="http://petlatkea.dk/2018/front/foobar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script src="js/main.transpiled.js"></script>
+</body>
+
+</html>

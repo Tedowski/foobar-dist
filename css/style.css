@@ -1,0 +1,546 @@
+/* 
+#7ED321 - green bartender
+#F8E71C - yellow bartender 
+
+Bartender rating yellow - #F5A623
+Bartender rating green - #26EB7B
+Bartender rating red - #D0021B
+
+Earning blue - #4A90E2
+Orders green - #61D2AD
+Wait time yellow - #F8E71C
+Reviews red - #B11427 
+*/
+
+* {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    color: rgb(80, 80, 80);
+    list-style-type: none;
+    text-decoration: none;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #E2E2E2;
+}
+
+.beer-img-div img,
+.det-beer-img img {
+    width: 100%;
+    height: 100%;
+}
+
+i {
+    font-size: 1.3em;
+}
+
+.spanned {
+    /* grid-row: span 2; */
+}
+
+.fa-user-circle {
+    font-size: 1.5em;
+}
+
+ul {
+    padding: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.active {
+    color: #4A90E2 !important;
+}
+
+.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 4px;
+    height: 100%;
+    background-color: #4A90E2;
+}
+
+.tooltip {
+    min-width: 150px;
+    background-color: #555;
+    color: #FBFBFB;
+    text-align: center;
+    padding: .5em 1em;
+    border-radius: .5em;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip span {
+    color: #FBFBFB;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+header,
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    height: 9vh;
+    width: 100vw;
+    background-color: #FBFBFB;
+    -webkit-box-shadow: 1px 0px 19px -1px rgba(0, 0, 0, 0.39);
+    -moz-box-shadow: 1px 0px 19px -1px rgba(0, 0, 0, 0.39);
+    box-shadow: 1px 0px 19px -1px rgba(0, 0, 0, 0.39);
+}
+
+.logo,
+.desc,
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.desc {
+    margin-left: 10vw;
+}
+
+.user {
+    height: 100%;
+    margin-right: 2em;
+}
+
+.name,
+.pro-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    margin-right: 1.5em;
+}
+
+aside {
+    z-index: 10;
+    width: 9vh;
+    height: 100vh;
+    background-color: #FBFBFB;
+}
+
+.logo {
+    background-color: #4A90E2;
+    color: #FBFBFB;
+    width: 100%;
+    height: 9vh;
+    justify-content: center;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.c-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+    width: 100%;
+    position: relative;
+}
+
+.c-button:hover {
+    color: #4A90E2 !important;
+}
+
+.c-button:hover::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    width: 4px;
+    height: 100%;
+    background-color: #4A90E2;
+}
+
+.c-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.c-button .tooltip {
+    bottom: 30%;
+    left: 120%;
+    margin-left: -1em;
+}
+
+.c-button .tooltip::after {
+    border-width: 5px;
+    left: 0;
+    top: 50%;
+}
+
+main {
+    z-index: 0;
+    width: 100vw;
+    padding: 9vh 0 0 9vh;
+    position: relative;
+}
+
+.wrapper {
+    padding: 2em;
+    width: 100%;
+    height: 100%;
+}
+
+.sec-one {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-gap: 1.5em;
+    grid-template-areas: "mini-one mini-two mini-three mini-four" "big-main big-main big-main big-main" "sub-grid sub-grid sub-grid sub-grid";
+}
+
+.sec-two {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5em;
+}
+
+.item {
+    background-color: #FBFBFB;
+    padding: 1em;
+    -webkit-box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+}
+
+.item-mini {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* max-height: 10vh; */
+}
+
+.item-main {
+    height: 100%;
+}
+
+#mini-one {
+    grid-area: mini-one;
+}
+
+#mini-two {
+    grid-area: mini-two;
+}
+
+#mini-three {
+    grid-area: mini-three;
+}
+
+#mini-four {
+    grid-area: mini-four;
+}
+
+#big-main {
+    grid-area: big-main;
+}
+
+#sub-grid {
+    grid-area: sub-grid;
+}
+
+.sec-taps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.tap-detail {
+    height: 30vh;
+}
+
+.item-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1.5em;
+}
+
+.big-header {
+    grid-column: span 3;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.big-chart {
+    grid-column: span 2;
+    padding: 1em;
+}
+
+.big-bart {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.sec-big-chart {
+    min-height: 50vh;
+    padding: 1em;
+}
+
+.tender {
+    border: 1px solid #E2E2E2;
+    margin: .5em;
+    -webkit-box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 9px 21px -5px rgba(0, 0, 0, 0.3);
+}
+
+.tender i,
+.beer-img i {
+    font-size: 2.5em;
+}
+
+.tender-banner {
+    width: 100%;
+}
+
+.tender-banner p {
+    padding: .3em 0;
+    margin: 0;
+    text-align: center;
+    color: #FBFBFB;
+}
+
+.tender-info {
+    margin-top: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub-grid {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 1.5em;
+}
+
+.sub-data-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -0.8em;
+    padding: 0 .5em;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.sub-icon {
+    padding: .5em 1em;
+    position: relative;
+}
+
+.sub-icon .tooltip {
+    left: 0;
+    bottom: 125%;
+    margin-left: -3.5em;
+}
+
+.sub-icon:hover {
+    color: red;
+}
+
+.sub-icon:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sub-content {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.limited article:nth-child(n+6) {
+    display: none;
+}
+
+.order,
+.tap {
+    display: flex;
+    border-bottom: 1px solid #E2E2E2;
+    position: relative;
+    min-height: 14vh;
+}
+
+.tap {
+    justify-content: space-between;
+}
+
+.beer-img {
+    border-right: 1px solid #E2E2E2;
+    padding-right: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.beer-img-div {
+    overflow: hidden;
+    border-radius: 50%;
+    width: 90%;
+    height: 50%;
+}
+
+.beer-use {
+    border-left: 1px solid #E2E2E2;
+}
+
+.beer-use p {
+    text-align: center;
+}
+
+.beer-info,
+.beer-name {
+    display: flex;
+    align-items: center;
+}
+
+.beer-img,
+.beer-use {
+    width: 20%;
+}
+
+.order h3,
+.order p {
+    text-align: center;
+}
+
+.order-info,
+.order-val {
+    border-right: 1px solid #E2E2E2;
+}
+
+.order-info {
+    padding-right: .5em;
+    min-width: 20%;
+}
+
+.order-val {
+    flex-grow: 2;
+    margin-left: .5em;
+    font-style: italic;
+}
+
+.order-tender {
+    margin-left: .5em;
+    min-width: 20%;
+    position: relative;
+}
+
+.show-status {
+    display: block;
+    margin: auto;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.show-status .tooltip {
+    bottom: 30%;
+    left: 100%;
+    margin-left: -1em;
+    z-index: 3;
+}
+
+.show-status .tooltip::after {
+    border-width: 5px;
+    left: 0;
+    top: 50%;
+}
+
+.show-status:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sec-inv {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1.5em;
+}
+
+.det-beer-name {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.det-beer-img {
+    margin: auto;
+    width: 100%;
+    height: 40vh;
+    margin-bottom: 1.5em; 
+}
+
+.beer-more  {
+   display: flex;
+   justify-content: center;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #FBFBFB;
+    margin: 10vh auto; 
+    padding: 1.5em;;
+    width: 80%;
+}
